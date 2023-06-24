@@ -22,10 +22,18 @@ app.get("/getRecipes", async (req, res) =>{
     
     res.render('recipes',{ recipes });
 })
+//add
 app.post('/recipe/add',async (req,res) =>{
     const recipe = await Recipe.create(req.body)
-    recipe.save().then(()=>res.redirect("recipes"))
+    recipe.save().then(()=>res.json())
 })
+//update
+
+app.put('/recipe/update/:id',async (req,res) =>{
+    const recipe = await Recipe.findByIdAndUpdate(req.params.id,req.body)
+    recipe.save().then(()=>res.json())
+})
+  
 
 
 app.set('view engine', 'ejs');
